@@ -1,6 +1,8 @@
-import React from 'react'
+import * as React from "react";
 // import { Link } from "react-router-dom";
 import "./topbar.css";
+import { Link, NavLink } from 'react-router-dom';
+// import { Link, NavLink } from 'react-dom';
 
 export default function Topbar() {
   return (
@@ -14,15 +16,18 @@ export default function Topbar() {
       <div className="topCenter">
         <ul className="topList">
           <li className="topListItem">
-           
+            
+           <Link to="/">
               HOME
+            </Link>
+          
           </li>
           <li className="topListItem">ABOUT</li>
           <li className="topListItem">CONTACT</li>
           <li className="topListItem">
-            {/* <Link className="link" to="/write">
-            </Link> */}
+            <Link className="link" to="/write">
               WRITE
+            </Link>
           </li>
          <li className="topListItem">LOGOUT</li>
         </ul>
@@ -37,14 +42,14 @@ export default function Topbar() {
         
           <ul className="topList">
             <li className="topListItem">
-              {/* <Link className="link" to="/login">
-              </Link> */}
+              <Link className="link" to="/login">
                 LOGIN
+              </Link> 
             </li>
             <li className="topListItem">
-              {/* <Link className="link" to="/register">
-              </Link> */}
+              <Link className="link" to="/register">
                 REGISTER
+              </Link>
             </li>
           </ul>
        
@@ -53,3 +58,4 @@ export default function Topbar() {
     </div>
   )
 }
+
