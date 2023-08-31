@@ -1,10 +1,8 @@
-import * as React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./topbar.css";
-import { Link, NavLink } from 'react-router-dom';
-// import { Link, NavLink } from 'react-dom';
 
 export default function Topbar() {
+  const user = true;
   return (
     <div className="top">
       <div className="topLeft">
@@ -16,11 +14,9 @@ export default function Topbar() {
       <div className="topCenter">
         <ul className="topList">
           <li className="topListItem">
-            
-           <Link to="/">
+            <Link className="link" to="/">
               HOME
             </Link>
-          
           </li>
           <li className="topListItem">ABOUT</li>
           <li className="topListItem">CONTACT</li>
@@ -29,22 +25,24 @@ export default function Topbar() {
               WRITE
             </Link>
           </li>
-         <li className="topListItem">LOGOUT</li>
+          {user && <li className="topListItem">LOGOUT</li>}
         </ul>
       </div>
       <div className="topRight">
-      <img
+        {user ? (
+          <Link className="link" to="/settings">
+            <img
               className="topImg"
               src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
               alt=""
             />
-        
-        
+          </Link>
+        ) : (
           <ul className="topList">
             <li className="topListItem">
               <Link className="link" to="/login">
                 LOGIN
-              </Link> 
+              </Link>
             </li>
             <li className="topListItem">
               <Link className="link" to="/register">
@@ -52,10 +50,9 @@ export default function Topbar() {
               </Link>
             </li>
           </ul>
-       
+        )}
         <i className="topSearchIcon fas fa-search"></i>
       </div>
     </div>
-  )
+  );
 }
-
