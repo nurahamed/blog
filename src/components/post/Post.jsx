@@ -1,29 +1,35 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import "./post.css"
-export default function Post() {
+export default function Post({ post }) {
+  const PF ="http://localhost:5000/images/"
   return (
     <div className='post'>
-       <img 
-       className='postImg'
-       src="https://www.searchenginejournal.com/wp-content/uploads/2020/08/7-ways-a-blog-can-help-your-business-right-now-5f3c06b9eb24e-1520x800.webp" alt="" />
-       <div className="postInfo">
+      {post.photo && (
+
+        <img
+          className='postImg'
+          src={PF+post.photo} alt="" />
+      )}
+
+      <div className="postInfo">
         <div className="postCatas">
-            <span className="postCat">Music</span>
-            <span className="postCat">Life</span>
+          {post.categories.map((c) => (
+            <span className="postCat">{c.name}</span>
+
+          ))}
         </div>
-        <span className="postTitle">
-            Lorem ipsum dolor sit amet.
-        </span>
+        <Link to={`/post/${post._id}`}>
+          <span className="postTitle">
+            {post.title}
+          </span>
+        </Link>
         <hr />
-        <span className="postDate">1 hour ago</span>
-       </div>
-       <p className='postDesc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel dolor itaque amet numquam minus, ea perferendis sit maiores similique deleniti.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel dolor itaque amet numquam minus, ea perferendis sit maiores similique deleniti.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel dolor itaque amet numquam minus, ea perferendis sit maiores similique deleniti.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel dolor itaque amet numquam minus, ea perferendis sit maiores similique deleniti.
-       </p>
+        <span className="postDate">{new Date(post.createdAt).toDateString()}</span>
+      </div>
+      <p className='postDesc'>
+        {post.desc}</p>
     </div>
- 
+
   )
 }
