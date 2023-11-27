@@ -10,18 +10,18 @@ import { useLocation } from "react-router-dom";
 
 export default function Homepage() {
   const [posts, setPosts] = useState([]);
-  const {search} = useLocation();
+  const { search } = useLocation();
 
 
 
-  useEffect(()=>{
-    const fetchPosts = async ()=>{
-     const res = await axios.get("/posts" + search)
-    //  console.log(res)
-    setPosts(res.data)
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await axios.get("/posts" + search)
+      //  console.log(res)
+      setPosts(res.data)
     }
     fetchPosts()
-  },[search])
+  }, [search])
 
   // const location = useLocation();
   // console.log(location);
@@ -29,8 +29,8 @@ export default function Homepage() {
     <>
       <Header />
       <div className="home">
-        <Posts posts = {posts}/>
-        <Sidebar/>
+        <Posts posts={posts} />
+        <Sidebar />
       </div>
     </>
   );

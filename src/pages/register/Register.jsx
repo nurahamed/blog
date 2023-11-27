@@ -1,13 +1,20 @@
 import axios from "axios";
-import { Link } from "react-router-dom"
-import "./register.css"
-import { useState } from "react"
+import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import "./register.css";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,10 +25,15 @@ export default function Register() {
         email,
         password,
       });
-      console.log(res)
-      res.data && window.location.replace("/login");
+      if (isMounted.current) {
+        console.log(res);
+        res.data && window.location.replace("/login");
+      }
     } catch (err) {
-      setError(true);
+      if (isMounted.current) {
+        console.error("Registration error:", err);
+        setError(true);
+      }
     }
   };
 
@@ -34,28 +46,36 @@ export default function Register() {
           className="registerInput"
           type="text"
           placeholder="Enter your username..."
-          onChange={e => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label>Email</label>
         <input
           className="registerInput"
           type="text"
           placeholder="Enter your email..."
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label>Password</label>
         <input
           className="registerInput"
           type="password"
           placeholder="Enter your password..."
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="registerButton" type="submit">Register</button>
+        <button className="registerButton" type="submit">
+          Register
+        </button>
       </form>
       <button className="registerLoginButton">
-        <Link className='link' to="/login"> Login</Link>
+        <Link className="link" to="/login">
+          Login
+        </Link>
       </button>
-    {error && <span style={{color:"red", marginTop:"10px"}}>Something went wrong</span>}
+      {error && (
+        <span style={{ color: "red", marginTop: "10px" }}>
+          Something went wrong
+        </span>
+      )}
     </div>
-  )
+  );
 }
